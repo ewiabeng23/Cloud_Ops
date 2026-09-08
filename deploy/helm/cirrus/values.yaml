@@ -1,0 +1,24 @@
+replicaCount: 2
+image:
+  repository: 517207998002.dkr.ecr.eu-west-1.amazonaws.com/cirrus
+  tag: v1
+  pullPolicy: IfNotPresent
+app:
+  name: cirrus
+  port: 8080
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
+database:
+  existingSecret: cirrus-db
+  existingSecretKey: DATABASE_URL
+  url: ""
+resources:
+  requests: { cpu: 100m, memory: 128Mi }
+  limits: { cpu: 500m, memory: 512Mi }
+serviceAccount:
+  create: true
+  name: ""
+probes:
+  path: /health
